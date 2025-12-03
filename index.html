@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHD Hustle Pro 🦉</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Confetti Container -->
+  <div id="confetti-container"></div>
+  
+  <!-- Achievement Notification -->
+  <div id="achievement-toast" class="achievement-toast hidden">
+    <div class="achievement-toast-content">
+      <span class="achievement-icon">🏆</span>
+      <div>
+        <div class="achievement-title"></div>
+        <div class="achievement-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-icon">🎯</span>
+        <h1>ADHD Hustle Pro</h1>
+      </div>
+      <div class="header-actions">
+        <div class="combo-badge" id="combo-badge">
+          <span class="combo-icon">🔥</span>
+          <span id="combo-count">0</span>
+        </div>
+        <div class="stars-badge" id="stars-badge">
+          <span class="stars-icon">⭐</span>
+          <span id="stars-count">0</span>
+        </div>
+        <div class="duo-container" id="duo-owl">
+          <div class="duo-owl" id="duo-character">
+            <div class="owl-face">🦉</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <nav class="nav-menu">
+        <button class="nav-item active" data-view="today">
+          <span class="nav-icon">📅</span>
+          <span class="nav-label">Today</span>
+        </button>
+        <button class="nav-item" data-view="tasks">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">All Tasks</span>
+        </button>
+        <button class="nav-item" data-view="achievements">
+          <span class="nav-icon">🏆</span>
+          <span class="nav-label">Achievements</span>
+        </button>
+        <button class="nav-item" data-view="stats">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Statistics</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Today View -->
+      <div class="view-container active" id="view-today">
+        <div class="view-header">
+          <h2>Today's Mission 🎯</h2>
+          <button class="btn btn--primary" id="add-task-btn">
+            <span>➕</span> Add Task
+          </button>
+        </div>
+
+        <div class="today-layout">
+          <div class="today-main">
+            <!-- Active Timer -->
+            <div class="timer-card hidden" id="timer-card">
+              <div class="timer-header">
+                <h3 id="timer-task-name">Task Name</h3>
+                <button class="btn-close" id="timer-close">✕</button>
+              </div>
+              <div class="timer-display">
+                <div class="timer-circle">
+                  <svg class="timer-svg" width="200" height="200">
+                    <circle class="timer-bg" cx="100" cy="100" r="90"></circle>
+                    <circle class="timer-progress" id="timer-progress-circle" cx="100" cy="100" r="90"></circle>
+                  </svg>
+                  <div class="timer-text" id="timer-text">00:00</div>
+                </div>
+              </div>
+              <div class="timer-controls">
+                <button class="btn btn--secondary" id="timer-pause">⏸ Pause</button>
+                <button class="btn btn--outline" id="timer-skip">⏭ Skip</button>
+                <button class="btn btn--primary" id="timer-complete">✓ Complete</button>
+              </div>
+            </div>
+
+            <!-- Task List -->
+            <div class="tasks-section">
+              <h3>Your Tasks</h3>
+              <div class="task-list" id="today-task-list">
+                <!-- Tasks will be inserted here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Daily Missions Sidebar -->
+          <div class="missions-sidebar">
+            <div class="card">
+              <h3>Daily Missions 🎮</h3>
+              <div class="missions-list" id="missions-list">
+                <!-- Missions will be inserted here -->
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+              <h3>Personal Best 🏅</h3>
+              <div class="stats-mini">
+                <div class="stat-item">
+                  <span class="stat-label">Longest Combo</span>
+                  <span class="stat-value" id="longest-combo">0</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Total Stars</span>
+                  <span class="stat-value" id="total-stars-display">0</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Tasks Completed</span>
+                  <span class="stat-value" id="total-completed">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Tasks View -->
+      <div class="view-container" id="view-tasks">
+        <div class="view-header">
+          <h2>All Tasks 📋</h2>
+          <button class="btn btn--primary" id="add-task-btn-2">
+            <span>➕</span> Add Task
+          </button>
+        </div>
+
+        <div class="category-filters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="Work">💼 Work</button>
+          <button class="filter-btn" data-category="Study">📚 Study</button>
+          <button class="filter-btn" data-category="Health">💪 Health</button>
+          <button class="filter-btn" data-category="Personal">🌟 Personal</button>
+          <button class="filter-btn" data-category="Social">👥 Social</button>
+        </div>
+
+        <div class="task-list" id="all-tasks-list">
+          <!-- All tasks will be displayed here -->
+        </div>
+      </div>
+
+      <!-- Achievements View -->
+      <div class="view-container" id="view-achievements">
+        <div class="view-header">
+          <h2>Achievements 🏆</h2>
+        </div>
+        <div class="achievements-grid" id="achievements-grid">
+          <!-- Achievements will be inserted here -->
+        </div>
+      </div>
+
+      <!-- Statistics View -->
+      <div class="view-container" id="view-stats">
+        <div class="view-header">
+          <h2>Statistics 📊</h2>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="card">
+            <h3>7-Day Overview</h3>
+            <canvas id="week-chart" style="max-height: 300px;"></canvas>
+          </div>
+          
+          <div class="card">
+            <h3>Category Breakdown</h3>
+            <canvas id="category-chart" style="max-height: 300px;"></canvas>
+          </div>
+          
+          <div class="card">
+            <h3>Personal Records 🏅</h3>
+            <div class="records-list">
+              <div class="record-item">
+                <span class="record-label">🔥 Longest Combo</span>
+                <span class="record-value" id="record-combo">0</span>
+              </div>
+              <div class="record-item">
+                <span class="record-label">⭐ Total Stars</span>
+                <span class="record-value" id="record-stars">0</span>
+              </div>
+              <div class="record-item">
+                <span class="record-label">✅ Total Completed</span>
+                <span class="record-value" id="record-completed">0</span>
+              </div>
+              <div class="record-item">
+                <span class="record-label">📈 Completion Rate</span>
+                <span class="record-value" id="record-rate">0%</span>
+              </div>
+              <div class="record-item">
+                <span class="record-label">⏱ Avg Duration</span>
+                <span class="record-value" id="record-duration">0 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="100" value="70" class="volume-slider">
+        <span id="volume-percent">70%</span>
+      </div>
+      <div class="backup-controls">
+        <button class="btn btn--outline btn--sm" id="export-btn">💾 Backup</button>
+        <button class="btn btn--outline btn--sm" id="import-btn">📂 Restore</button>
+        <input type="file" id="import-file" accept=".json" style="display: none;">
+      </div>
+    </div>
+  </footer>
+
+  <!-- Add/Edit Task Modal -->
+  <div class="modal hidden" id="task-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Add New Task</h3>
+        <button class="btn-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="task-form">
+          <div class="form-group">
+            <label class="form-label" for="task-name">Task Name</label>
+            <input type="text" id="task-name" class="form-control" required placeholder="e.g., Finish math homework">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="task-description">Description (optional)</label>
+            <textarea id="task-description" class="form-control" rows="3" placeholder="Add details..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="task-duration">Duration (minutes)</label>
+            <input type="number" id="task-duration" class="form-control" required min="1" value="25">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="task-category">Category</label>
+            <select id="task-category" class="form-control">
+              <option value="Work">💼 Work</option>
+              <option value="Study">📚 Study</option>
+              <option value="Health">💪 Health</option>
+              <option value="Personal">🌟 Personal</option>
+              <option value="Social">👥 Social</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn--outline" id="cancel-btn">Cancel</button>
+            <button type="submit" class="btn btn--primary" id="save-task-btn">Save Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal hidden" id="confirm-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content modal-content--sm">
+      <div class="modal-header">
+        <h3 id="confirm-title">Confirm</h3>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message"></p>
+        <div class="modal-actions">
+          <button class="btn btn--outline" id="confirm-cancel">Cancel</button>
+          <button class="btn btn--primary" id="confirm-ok">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
